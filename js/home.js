@@ -81,11 +81,11 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	var container = friends.parentNode
 	
 	// Delete new homepage bloat
-	//for (let i = 0; i < 3; i++) {
-	//	container.childNodes[1].remove();
-	//}
-	//container.childNodes[5].remove();
-	//container.childNodes[7].remove();
+	document.querySelector("#place-list > div > div > div:nth-child(2)").remove();
+	document.querySelector("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").remove();
+	document.querySelector("#place-list > div > div > div:nth-child(2)").remove();
+	document.querySelector("#place-list > div > div > div:nth-child(6)").remove();
+	document.querySelector("#place-list > div > div > div:nth-child(8)").remove();
 	
 	// Game card player count
 	var gameCards = document.querySelectorAll(".grid-item-container.game-card-container")
