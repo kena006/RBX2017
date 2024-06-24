@@ -1,0 +1,46 @@
+{
+	"name": "RBX2017",
+	"description": "Bring back the classic 2017 ROBLOX design",
+	"manifest_version": 3,
+	"version": "0.0.1",
+	"permissions": [
+		"scripting",
+		"storage"
+	],
+	"host_permissions": [
+		"*://*.roblox.com/*"
+	],
+	"action": {
+		"default_title": "RBX2017",
+		"default_icon": {
+			"16": "images/icon.ico",
+			"32": "images/icon.ico",
+			"48": "images/icon.ico",
+			"128": "images/icon.ico"
+		},
+		"default_popup": "popup.html"
+	},
+	"icons": {
+		"16": "images/icon.ico",
+		"32": "images/icon.ico",
+		"48": "images/icon.ico",
+		"128": "images/icon.ico"
+	},
+  
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.roblox.com/*"
+			],
+			"css": [
+				"css/main.css"
+			],
+			"js": [
+				"js/main.js",
+				"js/home.js"
+			],
+			"run_at": "document_start",
+			"all_frames": true
+		}
+	]
+}
