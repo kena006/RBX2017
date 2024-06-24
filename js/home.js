@@ -86,24 +86,26 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	var container = friends.parentNode
 	
 	// Remove home page bloat
-	if (container.childNodes[1].hasAttribute("data-testid")) {
-		homePageStyle = 1;
-	} else{
-		homePageStyle = 0;
-	}
-	
-	if (homePageStyle == 0) {
-		console.log(homePageStyle);
-		waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
-		waitForElm("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").then(async (elm) => {elm.remove()});
-		waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
-		waitForElm("#place-list > div > div > div:nth-child(9)").then(async (elm) => {elm.remove()});
-		waitForElm("#place-list > div > div > div:nth-child(12)").then(async (elm) => {elm.remove()});
-	} else{
-		waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
-		waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
-		waitForElm("#place-list > div > div > div:nth-child(7)").then(async (elm) => {elm.remove()});
-	}
+	setTimeout(function(){
+		if (container.childNodes[1].hasAttribute(["data-testid"])) {
+			homePageStyle = 1;
+		} else{
+			homePageStyle = 0;
+		}
+
+		if (homePageStyle == 0) {
+			console.log(homePageStyle);
+			waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
+			waitForElm("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").then(async (elm) => {elm.remove()});
+			waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
+			waitForElm("#place-list > div > div > div:nth-child(9)").then(async (elm) => {elm.remove()});
+			waitForElm("#place-list > div > div > div:nth-child(12)").then(async (elm) => {elm.remove()});
+		} else{
+			waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
+			waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
+			waitForElm("#place-list > div > div > div:nth-child(7)").then(async (elm) => {elm.remove()});
+		}
+	}, 100);
 	
 	// Game card player count
 	var gameCards = document.querySelectorAll(".grid-item-container.game-card-container")
