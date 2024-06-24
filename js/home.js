@@ -8,6 +8,7 @@ async function waitForElm(q) {
 };
 
 // Declare variables
+var homePageStyle;
 var username;
 var userId;
 var under13;
@@ -85,13 +86,24 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	var container = friends.parentNode
 	
 	// Remove home page bloat
-	setTimeout(function(){
+	if (container.childNodes[1].hasAttribute("data-testid")) {
+		homePageStyle = 1;
+	} else{
+		homePageStyle = 0;
+	}
+	
+	if (homePageStyle = 0) {
+		console.log(homePageStyle);
 		waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
 		waitForElm("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").then(async (elm) => {elm.remove()});
 		waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
 		waitForElm("#place-list > div > div > div:nth-child(9)").then(async (elm) => {elm.remove()});
 		waitForElm("#place-list > div > div > div:nth-child(12)").then(async (elm) => {elm.remove()});
-	}, 1000);
+	} else{
+		waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
+		waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
+		waitForElm("#place-list > div > div > div:nth-child(7)").then(async (elm) => {elm.remove()});
+	}
 	
 	// Game card player count
 	var gameCards = document.querySelectorAll(".grid-item-container.game-card-container")
