@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-
+// home.js
+// Wait for element
 async function waitForElm(q) {
 	while (document.querySelector(q) == null) {
 		await new Promise(r => requestAnimationFrame(r));
@@ -7,12 +7,17 @@ async function waitForElm(q) {
 	return document.querySelector(q);
 };
 
-// Get user data
+// Declare variables
+var username
+var userId
+var under13
 
-const userData = document.getElementsByTagName("meta")[8];
-const username = userData.getAttribute("data-name");
-const userId = userData.getAttribute("data-userid");
-const under13 = userData.getAttribute("data-isunder13");
+// Get user data
+waitForElm("head > meta:nth-child(12)").then(async (userData) => {
+	username = userData.getAttribute("data-name");
+	userId = userData.getAttribute("data-userid");
+	under13 = userData.getAttribute("data-isunder13");
+});
 
 const getUserImage = (type, id, size, format, circular) => {
 	return fetch("https://thumbnails.roblox.com/v1/users/" + type + "?userIds=" + id + "&size=" + size + "x" + size + "&format=" + format + "&isCircular=" + circular, {
@@ -81,11 +86,13 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	var container = friends.parentNode
 	
 	// Delete new homepage bloat
-	document.querySelector("#place-list > div > div > div:nth-child(2)").remove();
-	document.querySelector("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").remove();
-	document.querySelector("#place-list > div > div > div:nth-child(2)").remove();
-	document.querySelector("#place-list > div > div > div:nth-child(6)").remove();
-	document.querySelector("#place-list > div > div > div:nth-child(8)").remove();
+	setTimeout(function(){
+		container.childNodes[1].remove();
+		container.childNodes[1].remove();
+		container.childNodes[1].remove();
+		container.childNodes[5].remove();
+		container.childNodes[7].remove();
+	}, 0.00000000000001);
 	
 	// Game card player count
 	var gameCards = document.querySelectorAll(".grid-item-container.game-card-container")
@@ -110,6 +117,4 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 		
 		gamecard.firstChild.appendChild(playerCount);
 	}
-});
-
 });
