@@ -8,9 +8,9 @@ async function waitForElm(q) {
 };
 
 // Declare variables
-var username
-var userId
-var under13
+var username;
+var userId;
+var under13;
 
 // Change "Roblox" in title to "ROBLOX"
 waitForElm("head > title").then( async(title) => {
