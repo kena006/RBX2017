@@ -36,6 +36,7 @@
 				"css/main.css"
 			],
 			"js": [
+				"js/revertchannel.js",
 				"js/main.js",
 				"js/home.js"
 			],
