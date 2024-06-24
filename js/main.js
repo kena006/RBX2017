@@ -1,5 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-
 // Wait for Element
 
 async function waitForElm(q) {
@@ -9,6 +7,15 @@ async function waitForElm(q) {
 	return document.querySelector(q);
 };
 
+// Change "Roblox" in title to "ROBLOX"
+
+waitForElm("head > title").then( async(title) => {
+	title.innerText = title.innerText.replace("Roblox", "ROBLOX");
+	title.innerText = title.innerText.replace("Discover", "Games");
+});
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
 // Get user data
 
 const userData = document.getElementsByTagName("meta")[8];
@@ -17,10 +24,9 @@ const userId = userData.getAttribute("data-userid");
 const under13 = userData.getAttribute("data-isunder13");
 
 // 2017 Icon
-setTimeout(function(){
-	var icon = document.querySelector('link[rel="icon"]');
-	icon.href = "https://images.rbxcdn.com/1413ddb319288e8fccb8ab694ed0796c.ico.gzip";
-}, 0.0000000000001);
+
+const icon = document.querySelector('link[rel="icon"]');
+icon.href = "https://images.rbxcdn.com/1413ddb319288e8fccb8ab694ed0796c.ico.gzip";
 
 // Old navbar text
 
