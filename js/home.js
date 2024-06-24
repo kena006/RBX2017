@@ -81,18 +81,15 @@ waitForElm("#HomeContainer .section:first-child").then(async (hdrSec) => {
 });
 
 // Wait for the friends list to be loaded in first to ensure the homepage is completely loaded
-
 waitForElm("#place-list > div > div > div.friend-carousel-container").then(async (friends) => {
 	var container = friends.parentNode
 	
-	// Delete new homepage bloat
-	setTimeout(function(){
-		container.childNodes[1].remove();
-		container.childNodes[1].remove();
-		container.childNodes[1].remove();
-		container.childNodes[5].remove();
-		container.childNodes[7].remove();
-	}, 0.00000000000001);
+	// Remove home page bloat
+	waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
+	waitForElm("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").then(async (elm) => {elm.remove()});
+	waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
+	waitForElm("#place-list > div > div > div:nth-child(9)").then(async (elm) => {elm.remove()});
+	waitForElm("#place-list > div > div > div:nth-child(12)").then(async (elm) => {elm.remove()});
 	
 	// Game card player count
 	var gameCards = document.querySelectorAll(".grid-item-container.game-card-container")
