@@ -85,11 +85,13 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	var container = friends.parentNode
 	
 	// Remove home page bloat
-	waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
-	waitForElm("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").then(async (elm) => {elm.remove()});
-	waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
-	waitForElm("#place-list > div > div > div:nth-child(9)").then(async (elm) => {elm.remove()});
-	waitForElm("#place-list > div > div > div:nth-child(12)").then(async (elm) => {elm.remove()});
+	setTimeout(function(){
+		waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
+		waitForElm("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").then(async (elm) => {elm.remove()});
+		waitForElm("#place-list > div > div > div:nth-child(4)").then(async (elm) => {elm.remove()});
+		waitForElm("#place-list > div > div > div:nth-child(9)").then(async (elm) => {elm.remove()});
+		waitForElm("#place-list > div > div > div:nth-child(12)").then(async (elm) => {elm.remove()});
+	}, 1000);
 	
 	// Game card player count
 	var gameCards = document.querySelectorAll(".grid-item-container.game-card-container")
