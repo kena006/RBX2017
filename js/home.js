@@ -87,10 +87,10 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	
 	// Remove home page bloat
 	setTimeout(function(){
-		if (container.childNodes[1].hasAttribute("data_testid")) {
-			homePageStyle = 1;
-		} else{
+		if (container.childNodes[1].classList.contains("game-sort-header-container")) {
 			homePageStyle = 0;
+		} else{
+			homePageStyle = 1;
 		}
 
 		if (homePageStyle == 0) {
