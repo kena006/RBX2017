@@ -8,9 +8,9 @@ async function waitForElm(q) {
 };
 
 // Declare variables
-var username
-var userId
-var under13
+var username;
+var userId;
+var under13;
 
 // Get user data
 waitForElm("head > meta:nth-child(12)").then(async (userData) => {
