@@ -1,5 +1,5 @@
-// Wait for Element
-
+// main.js
+// Wait for element
 async function waitForElm(q) {
 	while (document.querySelector(q) == null) {
 		await new Promise(r => requestAnimationFrame(r));
@@ -7,26 +7,28 @@ async function waitForElm(q) {
 	return document.querySelector(q);
 };
 
-// Change "Roblox" in title to "ROBLOX"
+// Declare variables
+var username
+var userId
+var under13
 
+// Change "Roblox" in title to "ROBLOX"
 waitForElm("head > title").then( async(title) => {
 	title.innerText = title.innerText.replace("Roblox", "ROBLOX");
 	title.innerText = title.innerText.replace("Discover", "Games");
 });
 
-document.addEventListener("DOMContentLoaded", function(event) {
-
 // Get user data
-
-const userData = document.getElementsByTagName("meta")[8];
-const username = userData.getAttribute("data-name");
-const userId = userData.getAttribute("data-userid");
-const under13 = userData.getAttribute("data-isunder13");
+waitForElm("head > meta:nth-child(12)").then( async (userData) => {
+	username = userData.getAttribute("data-name");
+	userId = userData.getAttribute("data-userid");
+	under13 = userData.getAttribute("data-isunder13");
+});
 
 // 2017 Icon
-
-const icon = document.querySelector('link[rel="icon"]');
-icon.href = "https://images.rbxcdn.com/1413ddb319288e8fccb8ab694ed0796c.ico.gzip";
+waitForElm("head > link:nth-child(26)").then( async(icon) => {
+	icon.href = "https://images.rbxcdn.com/1413ddb319288e8fccb8ab694ed0796c.ico.gzip";
+});
 
 // Old navbar text
 
@@ -113,5 +115,4 @@ waitForElm("button.btn-navigation-nav-robux-md").then( async(elm) => {
 			}
 		}, 0.0000000000000000000000000000000000000000000000000000000000001);
 	}); 
-});
 });
