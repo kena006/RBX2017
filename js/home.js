@@ -92,7 +92,7 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 		homePageStyle = 0;
 	}
 	
-	if (homePageStyle = 0) {
+	if (homePageStyle == 0) {
 		console.log(homePageStyle);
 		waitForElm("#place-list > div > div > div:nth-child(2)").then(async (elm) => {elm.remove()});
 		waitForElm("#place-list > div > div > div.game-carousel.wide-game-tile-carousel.expand-home-content").then(async (elm) => {elm.remove()});
