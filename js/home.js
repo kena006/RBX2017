@@ -87,7 +87,7 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	
 	// Remove home page bloat
 	setTimeout(function(){
-		if (container.childNodes[1].hasAttribute(["data-testid"])) {
+		if (container.childNodes[1].hasAttribute("data_testid")) {
 			homePageStyle = 1;
 		} else{
 			homePageStyle = 0;
