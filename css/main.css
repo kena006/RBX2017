@@ -456,7 +456,7 @@ span.thumbnail-2d-container.game-card-thumb-container {
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
 }
-.game-card-friend-info.game-card-info {
+.game-card-friend-info.game-card-info, .game-card-info {
     display: none;
 }
 .game-card-name.game-name-title {
