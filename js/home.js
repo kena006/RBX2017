@@ -1,11 +1,11 @@
 // home.js
 // Global functions
 async function waitForElm(q) {
-	while (document.querySelector(q) == null) {
+	while (document.querySelector(q) === null) {
 		await new Promise(r => requestAnimationFrame(r));
-	};
+	}
 	return document.querySelector(q);
-};
+}
 function createElement(elmType, elmClass, elmParent) {
 	elm = document.createElement(elmType);
 	elm.className = elmClass;
@@ -31,8 +31,8 @@ const getUserImage = (type, id, size, format, circular) => {
 		}
     });
 };
-const getGameData = (id, type, api) => {
-	return fetch(api + id, {
+const getGameData = (api, ids) => {
+	return fetch(api + ids, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ const getGameData = (id, type, api) => {
     })
     .then(data => {
 		if (data) {
-			return data.data[0][type];
+			return data;
 		} else {
 			console.log("There was an error while fetching data");
 		}
@@ -102,8 +102,6 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 	var gameCards = document.querySelectorAll(".grid-item-container.game-card-container")
 	for (let i = 0; i < gameCards.length; i++) {
 		var gamecard = gameCards[i];
-
-		gamecard.firstChild.childNodes[2].remove();
 		var name = gamecard.firstChild.childNodes[1];
 		
 		playerCount = createElement("div", "game-card-name-secondary", gamecard.firstChild);
@@ -156,45 +154,61 @@ waitForElm("#place-list > div > div > div.friend-carousel-container").then(async
 		creator.setAttribute("ng-non-bindable", "");
 	};
 	
-	// Gamecard playing
-	for (let i = 0; i < gameCards.length; i++) {
-		var gamecard = gameCards[i];
-		var id = gamecard.firstChild.id;
-		
-		var playerCount = gamecard.firstChild.childNodes[2]
-		var playing = await getGameData(id, "playing", "https://games.roproxy.com/v1/games?universeIds=");
-		
-		if (playing) {
-			playerCount.innerText = playing + " Playing"
-		} else {
-			playerCount.innerText = "0 Playing"
-		}
-	}
+	const gameIds = [];
 	
-	// Gamecard creator data
+	// Get gamecard ids
 	for (let i = 0; i < gameCards.length; i++) {
-		var gamecard = gameCards[i];
-		var id = gamecard.firstChild.id;
+		gamecard = gameCards[i];
+		id = gamecard.firstChild.id;
 		
-		var creatorData = await getGameData(id, "creator", "https://games.roproxy.com/v1/games?universeIds=");
-		
-		footer = gamecard.firstChild.childNodes[4];
-		creatorLink = footer.childNodes[1]
-		creatorLink.innerText = creatorData.name;
-		
-		if (creatorData.type == "User") {
-			creatorLink.href = "https://www.roblox.com/users/" + creatorData.id + "/profile";
-		} else{
-			creatorLink.href = "https://www.roblox.com/groups/" + creatorData.id;
-		}
+		gameIds.push(id);
 	}
-	
-	// Gamecard voting
+
+	var gameData = await getGameData("https://games.roproxy.com/v1/games?universeIds=", gameIds.toString());
+	var votingData = await getGameData("https://games.roblox.com/v1/games/votes?universeIds=", gameIds.toString());
+  
+	// Gamecard data
 	for (let i = 0; i < gameCards.length; i++) {
-		var gamecard = gameCards[i];
-		var id = gamecard.firstChild.id;
-		
-		var likes = await getGameData(id, "upVotes", "https://games.roblox.com/v1/games/votes?universeIds=");
-		//var dislikes = await getGameData(id, "downVotes", "https://games.roblox.com/v1/games/votes?universeIds=");
+		gamecard = gameCards[i];
+		id = gamecard.firstChild.id;
+	  container = gamecard.firstChild;
+	  players = container.childNodes[3];
+	  voteContainer = container.childNodes[4];
+	  voteCounts = voteContainer.childNodes[1];
+	  footer = container.childNodes[5];
+	  
+	  thisGameData = gameData.data[i];
+	  thisVotingData = votingData.data[i];
+	  
+	  footer.childNodes[1].innerText = thisGameData.creator.name;
+	  
+	  if (players) {
+	    players.innerText = thisGameData.playing + " Playing";
+	  } else{
+	    players.innerText = "0 Playing";
+	  }
+	  
+	  if (thisGameData.creator.type == "User") {
+	    footer.childNodes[1].href = "https://www.roblox.com/users/" + thisGameData.creator.id + "/profile";
+	  } else {
+	    footer.childNodes[1].href = "https://www.roblox.com/groups/" + thisGameData.creator.id;
+	  }
+	  
+	  likes = thisVotingData.upVotes
+	  dislikes = thisVotingData.downVotes
+	  voteCounts.firstChild.innerText = dislikes
+	  voteCounts.childNodes[1].innerText = likes
+	  
+	  if (likes === dislikes) {
+      votePercentage = 50;
+     } else {
+      votePercentage = (likes / (dislikes + likes)) * 100;
+    }
+    
+    voteContainer.firstChild.childNodes[1].childNodes[1].style = "width: " + votePercentage + "%;";
+    if (likes != 0 & dislikes != 0) {
+      voteContainer.firstChild.childNodes[1].firstChild.className = "vote-background";
+    }
+    voteContainer.firstChild.setAttribute("data-voting-processed", true);
 	}
 });
