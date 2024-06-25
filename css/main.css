@@ -46,6 +46,9 @@ h2.ng-binding, h2 {
     font-size: 24px !important;
     font-weight: 300 !important;
 }
+.text-link, .vlist .list-item .list-body .list-content a, .text-link:link, .vlist .list-item .list-body .list-content a:link, .text-link:hover, .vlist .list-item .list-body .list-content a:hover, .text-link:visited, .vlist .list-item .list-body .list-content a:visited, .text-link:active, .vlist .list-item .list-body .list-content a:active {
+    color: #00A2FF !important;
+}
 a.font-header-2.nav-menu-title.text-header {
     color: #fff !important;
     font-weight: 400 !important;
@@ -61,8 +64,8 @@ span#nav-robux-amount, .rbx-header .rbx-navbar-icon-group li .rbx-menu-item, .rb
 /*Remove stuff*/
 
 /*Remove loading animations*/
-.grid-item-container.game-card-container.game-card-loading {
-	display: none;
+.grid-item-container.game-card-container.game-card-loading, .shimmer {
+	display: none !important;
 }
 /*Remove friend game details*/
 .popover.bottom.people-info-card-container, .people-list .friend .place-name {
@@ -83,6 +86,10 @@ div#navigation ul li a span.avatar.avatar-headshot-xs {
 /*Remove hover background from nav*/
 button.btn-navigation-nav-settings-md, button.btn-navigation-nav-robux-md, button.btn-uiblox-common-common-notification-bell-md, button.menu-button.btn-navigation-nav-menu-md {
     background: none !important;
+}
+/*Remove new homepage stuff*/
+.game-home-page-container div .game-sort-header-container:nth-child(2), div[data-testid*="home-page-game-grid"], .game-carousel.wide-game-tile-carousel.expand-home-content {
+    display: none !important;
 }
 
 /*Buttons*/
@@ -429,6 +436,7 @@ ul.notification-stream-list li {
     padding: 0;
     text-align: left;
     width: 100%;
+	display: block !important;
 }
 .game-card-link:hover {
     -webkit-transition: box-shadow 200ms ease;
@@ -438,6 +446,10 @@ ul.notification-stream-list li {
 }
 .game-card-thumb-container:before {
 	display: none;
+}
+.game-card-link:hover {
+    height: auto !important;
+    z-index: 1000 !important;
 }
 span.thumbnail-2d-container.game-card-thumb-container {
     border-radius: 0px;
@@ -452,10 +464,11 @@ span.thumbnail-2d-container.game-card-thumb-container {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.game-card-name.game-name-title, .game-card-name-secondary {
+.game-card-name.game-name-title, .game-card-name-secondary,  .game-card-vote {
     width: 100% !important;
     padding: 0 6px !important;
     margin: 3px 0 !important;
+	line-height: 1.3em !important;
 }
 .game-card-name-secondary {
     font-size: 12px !important;
@@ -463,8 +476,83 @@ span.thumbnail-2d-container.game-card-thumb-container {
     color: #757575 !important;
 }
 .game-carousel.expand-home-content {
-    grid-column-gap: 0px;
-	--items-per-row: 6 !important;
-    grid-template-columns: repeat(auto-fill,calc((var(--home-feed-width) - 1px - 20px*(var(--items-per-row) - 1))/var(--items-per-row))) !important;
-	margin: 0 0 6px;
+    display: block !important;
+	margin: 0 0 6px !important;
+}
+.game-card-name {
+    margin-top: 6px;
+}
+/*Fix like/dislike icons */
+.icon-default-thumbs-16x16, .icon-thumbs-up, .icon-thumbs-down {
+    background-image: url(/images/Icons/thumbs.svg);
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.vote-thumbs-up .icon-thumbs-up {
+    background-position: 0 0;
+    background-size: 32px auto;
+    width: 16px;
+    height: 16px;
+}
+.game-card-link:hover .icon-thumbs-up {
+    background-position: -16px 0;
+    background-size: 32px auto;
+    width: 16px;
+    height: 16px;
+}
+.vote-thumbs-down .icon-thumbs-down {
+    background-position: 0 -16px;
+    background-size: 32px auto;
+    width: 16px;
+    height: 16px;
+}
+.game-card-link:hover .icon-thumbs-down {
+    background-position: -16px -16px;
+    background-size: 32px auto;
+    width: 16px;
+    height: 16px;
+}
+.game-card-link:hover .vote-thumbs-down {
+    visibility: visible;
+}
+.game-card-link:hover .vote-container .vote-background {
+    background-color: #E27676;
+    opacity: .6;
+}
+.game-card-link:hover .vote-container .vote-background.no-votes {
+    background-color: #757575;
+}
+.game-card-link:hover .vote-container .vote-percentage {
+    background-color: #02b757;
+}
+span.thumbnail-2d-container.game-card-thumb-container {
+    padding: 0px !important;
+    width: 150px !important;
+    height: 150px !important;
+    display: block !important;
+}
+/*Fix vote counts*/
+.game-card-link:hover .vote-counts, .game-card-link:hover .game-card-footer {
+    display: block;
+    float: left;
+}
+/*Fix footer*/
+.game-card-footer {
+    width: 100% !important;
+    border-top: 1px solid #E3E3E3 !important;
+    padding: 5px 5px 0 !important;
+}
+a.text-link.xsmall.text-overflow {
+    width: calc(100% - 18px);
+    margin-left: 3px;
+    display: block;
+	float: left;
+}
+span.text-label.xsmall {
+    float: left;
+    color: #B8B8B8;
 }
