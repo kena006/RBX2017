@@ -26,12 +26,12 @@ waitForElm("head > meta:nth-child(12)").then( async (userData) => {
 });
 
 // 2017 Icon
-waitForElm("head > link:nth-child(26)").then( async(icon) => {
+setTimeout(function(){
+	const icon = document.querySelector('link[rel="icon"]');
 	icon.href = "https://images.rbxcdn.com/1413ddb319288e8fccb8ab694ed0796c.ico.gzip";
-});
+}, 1);
 
 // Old navbar text
-
 waitForElm(".rbx-navbar").then( async(elm) => {
 	elm.childNodes[1].childNodes[1].innerText = "Games";
 	elm.childNodes[3].childNodes[1].innerText = "Catalog";
